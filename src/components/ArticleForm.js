@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 function ArticleForm() {
@@ -8,6 +9,18 @@ function ArticleForm() {
 
     let handleSubmit = (e) => {
         e.preventDefault();
+        axios
+            .post('http://localhost:3344/news/', {
+                title,
+                description,
+                imgUrl,
+            })
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
         console.log({ title, description, imgUrl });
     };
     return (
@@ -23,7 +36,6 @@ function ArticleForm() {
                 value={title}
                 onChange={(e) => {
                     setTitle(e.target.value);
-                    console.log(title);
                 }}
             />
             <label htmlFor="title">Description</label>
@@ -36,7 +48,6 @@ function ArticleForm() {
                 value={description}
                 onChange={(e) => {
                     setDescription(e.target.value);
-                    console.log(description);
                 }}
             />
             <label htmlFor="title">Img Source</label>
@@ -49,7 +60,6 @@ function ArticleForm() {
                 value={imgUrl}
                 onChange={(e) => {
                     setImgUrl(e.target.value);
-                    console.log(imgUrl);
                 }}
             />
             {/* <div className="border">
