@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+
 function ArticleForm() {
+    const navigate = useNavigate();
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [imgUrl, setImgUrl] = useState('');
-
     let handleSubmit = (e) => {
         e.preventDefault();
         axios
@@ -21,7 +22,7 @@ function ArticleForm() {
             .catch(function (error) {
                 console.log(error);
             });
-        console.log({ title, description, imgUrl });
+   
     };
     return (
         <div className="flex flex-col container gap-2 mx-auto">
@@ -62,16 +63,17 @@ function ArticleForm() {
                     setImgUrl(e.target.value);
                 }}
             />
-            {/* <div className="border">
-                <Editor
-                    toolbarClassName="toolbarClassName"
-                    wrapperClassName="wrapperClassName"
-                    editorClassName="editorClassName"
-                />
-            </div> */}
+
+            <div className='flex border border-red-300'>
+              <span className='p-6'>Image Preview:</span>
+            <img className='w-1/3 my-6' src={imgUrl} />
+            </div>
+           
             <div className="mx-auto container">
                 <form>
-                    <button className="mx-4 border shadow w-1/5">Cancel</button>
+                   <Link to='/'>
+                    <button className="mx-4 border shadow w-1/5">
+                    Cancel</button></Link>
                     <button className="mx-4 border bg-red-600 text-white shadow w-1/5">
                         Delete
                     </button>

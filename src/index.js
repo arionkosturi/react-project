@@ -5,6 +5,7 @@ import './index.css';
 import Home from './components/Home';
 import NotFoundPage from './components/NotFoundPage';
 import ArticleForm from './components/ArticleForm';
+import EditArticle from './components/EditArticle'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
     {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
         path: '/new',
         element: <ArticleForm />,
     },
+    {
+        path: '/edit',
+        element: <EditArticle />,
+    }
 ]);
 
 root.render(
