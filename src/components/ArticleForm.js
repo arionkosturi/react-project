@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 function ArticleForm() {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [imgUrl, setImgUrl] = useState('');
+
     let handleSubmit = (e) => {
         e.preventDefault();
-        console.log('form submitted');
+        console.log({ title, description, imgUrl });
     };
     return (
         <div className="flex flex-col container gap-2 mx-auto">
@@ -16,6 +20,11 @@ function ArticleForm() {
                 placeholder="Enter Title"
                 name="title"
                 className="border"
+                value={title}
+                onChange={(e) => {
+                    setTitle(e.target.value);
+                    console.log(title);
+                }}
             />
             <label htmlFor="title">Description</label>
             <input
@@ -24,6 +33,11 @@ function ArticleForm() {
                 placeholder="Enter Description"
                 name="description"
                 className="border"
+                value={description}
+                onChange={(e) => {
+                    setDescription(e.target.value);
+                    console.log(description);
+                }}
             />
             <label htmlFor="title">Img Source</label>
             <input
@@ -32,21 +46,29 @@ function ArticleForm() {
                 placeholder="Enter Img Source"
                 name="imgUrl"
                 className="border"
+                value={imgUrl}
+                onChange={(e) => {
+                    setImgUrl(e.target.value);
+                    console.log(imgUrl);
+                }}
             />
-            <div className="border">
+            {/* <div className="border">
                 <Editor
                     toolbarClassName="toolbarClassName"
                     wrapperClassName="wrapperClassName"
                     editorClassName="editorClassName"
                 />
-            </div>
+            </div> */}
             <div className="mx-auto container">
-                <form onSubmit={handleSubmit}>
+                <form>
                     <button className="mx-4 border shadow w-1/5">Cancel</button>
                     <button className="mx-4 border bg-red-600 text-white shadow w-1/5">
                         Delete
                     </button>
-                    <button className="mx-4 border shadow bg-green-600 text-white w-1/5">
+                    <button
+                        onClick={handleSubmit}
+                        className="mx-4 border shadow bg-green-600 text-white w-1/5"
+                    >
                         Submit
                     </button>
                 </form>
