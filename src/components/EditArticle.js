@@ -69,7 +69,10 @@ function EditArticle() {
 
     return (
         <div className="flex flex-col container gap-1 mx-auto">
-            <Header className="text-white" />
+            <Header
+                // @ts-ignore
+                className="text-white"
+            />
 
             <h1 className="text-3xl text-purple-600">Edit Article:</h1>
             <label htmlFor="title" className="text-xl">
@@ -83,6 +86,7 @@ function EditArticle() {
                 className="border p-2"
                 value={title}
                 onChange={(e) => {
+                    // @ts-ignore
                     setTitle(e.target.value);
                 }}
             />
@@ -93,9 +97,11 @@ function EditArticle() {
                 placeholder="Enter Description"
                 name="description"
                 className="border p-2"
+                // @ts-ignore
                 rows="4"
                 value={description}
                 onChange={(e) => {
+                    // @ts-ignore
                     setDescription(e.target.value);
                 }}
             />
@@ -106,9 +112,11 @@ function EditArticle() {
                 placeholder="Enter Content"
                 name="content"
                 className="border p-2"
+                // @ts-ignore
                 rows="10"
                 value={content}
                 onChange={(e) => {
+                    // @ts-ignore
                     setContent(e.target.value);
                 }}
             />
@@ -121,6 +129,7 @@ function EditArticle() {
                 className="border"
                 value={author}
                 onChange={(e) => {
+                    // @ts-ignore
                     setAuthor(e.target.value);
                 }}
             />
@@ -133,11 +142,13 @@ function EditArticle() {
                 className="border p-2"
                 value={sourceUrl}
                 onChange={(e) => {
+                    // @ts-ignore
                     setSource(e.target.value);
                 }}
             />
             <label htmlFor="category">Category:</label>
             <textarea
+                // @ts-ignore
                 type="text"
                 id="category"
                 placeholder="Enter Category"
@@ -145,11 +156,13 @@ function EditArticle() {
                 className="border"
                 value={category}
                 onChange={(e) => {
+                    // @ts-ignore
                     setCategory(e.target.value);
                 }}
             />
             <label htmlFor="title">Img Source</label>
             <textarea
+                // @ts-ignore
                 type="text"
                 id="imgUrl"
                 placeholder="Enter Img Source"
@@ -157,6 +170,7 @@ function EditArticle() {
                 className="border p-1"
                 value={imgUrl}
                 onChange={(e) => {
+                    // @ts-ignore
                     setImgUrl(e.target.value);
                 }}
             />

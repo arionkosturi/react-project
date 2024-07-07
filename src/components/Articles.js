@@ -1,31 +1,31 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import axios from 'axios';
 import { FaTrash, FaPencilAlt } from 'react-icons/fa';
-import { useNavigate, Link, useParams } from 'react-router-dom';
-import EditArticle from './EditArticle';
+import { useNavigate } from 'react-router-dom';
 const api = axios.create({
     baseURL: 'http://localhost:3344/news/',
 });
 
-function Articles() {
+function Articles({ currentPage }) {
     const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
+    console.log(currentPage);
     React.useEffect(() => {
-        api.get('/').then((res) => {
+        api.get(`/?p=${currentPage}`).then((res) => {
             setArticles(res.data);
         });
-
         return () => {};
-    }, []);
+    }, [currentPage]);
     let show_after_deleted = () => {
         api.get('/').then((res) => {
             setArticles(res.data);
         });
     };
-
     return articles.map((article) => {
         let handleDelete = () => {
             api.delete(`/${article._id}`)
+                // @ts-ignore
                 .then((response) => {
                     show_after_deleted();
                 })
@@ -40,7 +40,6 @@ function Articles() {
 
         return (
             <div
-                onClick={() => console.log(article._id)}
                 className="flex container mx-auto border my-1"
                 key={article._id}
             >
@@ -64,15 +63,6 @@ function Articles() {
                     onClick={handleEdit}
                     className="mt-4 w-48 hover:text-red-600"
                 />
-                {/* <FaPencilAlt id={article._id}
-                    onClick={() => {
-                      <EditArticle id={article._id}
-                      title={article.title}
-                      description={article.description}
-                      imgUrl={article.imgUrl} />
-                    }}
-                    className="mt-4 w-48 hover:text-red-600"
-                /> */}
             </div>
         );
     });

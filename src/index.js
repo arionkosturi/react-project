@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -5,12 +6,14 @@ import './index.css';
 import Home from './components/Home';
 import NotFoundPage from './components/NotFoundPage';
 import ArticleForm from './components/ArticleForm';
-import EditArticle from './components/EditArticle'
+import EditArticle from './components/EditArticle';
+import Paginate from './components/Paginate';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const router = createBrowserRouter([
     {
         path: '/',
         element: <Home />,
+
         errorElement: <NotFoundPage />,
     },
     {
@@ -20,7 +23,7 @@ const router = createBrowserRouter([
     {
         path: '/edit',
         element: <EditArticle />,
-    }
+    },
 ]);
 
 root.render(

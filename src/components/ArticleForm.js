@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 
 function ArticleForm() {
-    const navigate = useNavigate();
-
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [content, setContent] = useState('');
@@ -58,6 +56,7 @@ function ArticleForm() {
                 placeholder="Enter Description"
                 name="description"
                 className="border p-2"
+                // @ts-ignore
                 rows="4"
                 value={description}
                 onChange={(e) => {
@@ -71,6 +70,7 @@ function ArticleForm() {
                 placeholder="Enter Content"
                 name="content"
                 className="border p-2"
+                // @ts-ignore
                 rows="10"
                 value={content}
                 onChange={(e) => {
@@ -91,6 +91,7 @@ function ArticleForm() {
             />
             <label htmlFor="source">Source:</label>
             <textarea
+                // @ts-ignore
                 type="text"
                 id="source"
                 placeholder="Enter Source"
@@ -116,6 +117,7 @@ function ArticleForm() {
 
             <label htmlFor="imgUrl">Image URL</label>
             <textarea
+                // @ts-ignore
                 type="text"
                 id="imgUrl"
                 placeholder="Enter Img Source"
