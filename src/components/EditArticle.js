@@ -2,107 +2,176 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 const api = axios.create({
-  baseURL: 'http://localhost:3344/news/',
+    baseURL: 'http://localhost:3344/news/',
 });
 function EditArticle() {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  let handleDelete = (e) => {
-    e.preventDefault();
-    api.delete(`/${id}`)
-        .then((response) => {
-            console.log(response);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    let handleDelete = (e) => {
+        e.preventDefault();
+        api.delete(`/${id}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
-        navigate(`/`)
+        navigate(`/`);
+    };
+    let handleSubmit = (e) => {
+        e.preventDefault();
+        axios
+            .patch(
+                `http://localhost:3344/news/${id}`,
 
-};
-  let handleSubmit = (e) => {
-    e.preventDefault();
-   axios.patch(`http://localhost:3344/news/${id}`,
-    
-    {
-      title,      
-      description,
-      imgUrl
-
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-        
-};
+                {
+                    title,
+                    description,
+                    content,
+                    author,
+                    sourceUrl,
+                    category,
+                    imgUrl,
+                }
+            )
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
     const [title, setTitle] = useState();
-    const [queryParameter] = useSearchParams()
-    let id = queryParameter.get('id')
     const [description, setDescription] = useState();
     const [imgUrl, setImgUrl] = useState();
+    const [content, setContent] = useState();
+    const [author, setAuthor] = useState();
+    const [sourceUrl, setSource] = useState();
+    const [category, setCategory] = useState();
+
+    const [queryParameter] = useSearchParams();
+    let id = queryParameter.get('id');
     React.useEffect(() => {
+        api.get(`${id}`).then((res) => {
+            setTitle(res.data.title);
+            setDescription(res.data.description);
+            setContent(res.data.content);
+            setCategory(res.data.category);
+            setAuthor(res.data.author);
+            setSource(res.data.sourceUrl);
+            setImgUrl(res.data.imgUrl);
+        });
 
-      api.get(`${id}`).then((res) => {
-          setTitle(res.data.title);
-          setDescription(res.data.description);
-          setImgUrl(res.data.imgUrl);
-      });
+        return () => {};
+    }, []);
 
-      return () => {};
-  }, []);
-   
     return (
-        <div className="flex flex-col container gap-2 mx-auto">
+        <div className="flex flex-col container gap-1 mx-auto">
             <h1>Edit Article</h1>
-            <label htmlFor="title" className='text-xl'>Title:</label>
-            <textarea
+            <label htmlFor="title" className="text-xl">
+                Title:
+            </label>
+            <input
                 type="text"
                 id="title"
                 placeholder="Enter Title"
                 name="title"
-                className="border p-4"
+                className="border p-2"
                 value={title}
                 onChange={(e) => {
-                    setTitle(e.target.value)
+                    setTitle(e.target.value);
                 }}
             />
             <label htmlFor="description">Description</label>
-            <input
+            <textarea
                 type="text"
                 id="description"
                 placeholder="Enter Description"
                 name="description"
-                className="border"
+                className="border p-2"
+                rows="4"
                 value={description}
                 onChange={(e) => {
                     setDescription(e.target.value);
                 }}
             />
-            <label htmlFor="title">Img Source</label>
+            <label htmlFor="content">Content</label>
+            <textarea
+                type="text"
+                id="content"
+                placeholder="Enter Content"
+                name="content"
+                className="border p-2"
+                rows="10"
+                value={content}
+                onChange={(e) => {
+                    setContent(e.target.value);
+                }}
+            />
+            <label htmlFor="author">Author:</label>
             <input
+                type="text"
+                id="author"
+                placeholder="Enter Author"
+                name="author p-2"
+                className="border"
+                value={author}
+                onChange={(e) => {
+                    setAuthor(e.target.value);
+                }}
+            />
+            <label htmlFor="source">Source</label>
+            <input
+                type="text"
+                id="source"
+                placeholder="Enter Source"
+                name="source"
+                className="border p-2"
+                value={sourceUrl}
+                onChange={(e) => {
+                    setSource(e.target.value);
+                }}
+            />
+            <label htmlFor="category">Category:</label>
+            <textarea
+                type="text"
+                id="category"
+                placeholder="Enter Category"
+                name="category"
+                className="border"
+                value={category}
+                onChange={(e) => {
+                    setCategory(e.target.value);
+                }}
+            />
+            <label htmlFor="title">Img Source</label>
+            <textarea
                 type="text"
                 id="imgUrl"
                 placeholder="Enter Img Source"
                 name="imgUrl"
-                className="border"
+                className="border p-1"
                 value={imgUrl}
                 onChange={(e) => {
                     setImgUrl(e.target.value);
                 }}
             />
-            <div className='flex border border-red-300'>
-              <span className='p-6'>Image Preview:</span>
-            <img className='w-1/3 my-6' src={imgUrl} />
+            <div className="flex border border-red-300">
+                <span className="p-6">Image Preview:</span>
+                <img className="w-1/3 my-6" src={imgUrl} />
             </div>
             <div className="mx-auto container ">
                 <form>
-                   <Link to='/'>
-                    <button className="mx-4 border shadow w-1/5">
-                    Cancel</button></Link>
-                    <button onClick={handleDelete} className="mx-4 border bg-red-600 text-white shadow w-1/5">
+                    <Link to="/">
+                        <button className="mx-4 border shadow w-1/5">
+                            Cancel
+                        </button>
+                    </Link>
+                    <button
+                        onClick={handleDelete}
+                        className="mx-4 border bg-red-600 text-white shadow w-1/5"
+                    >
                         Delete
                     </button>
                     <button
