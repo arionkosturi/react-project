@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Header from './Header';
+import CustomEditor from './CustomEditor';
 
 function ArticleForm() {
+    const [contentValue, setContentValue] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [content, setContent] = useState('');
+    // const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('');
     const [sourceUrl, setSource] = useState('');
@@ -19,7 +21,7 @@ function ArticleForm() {
                 title,
                 description,
                 imgUrl,
-                content,
+                content: contentValue,
                 author,
                 category,
                 sourceUrl,
@@ -37,6 +39,7 @@ function ArticleForm() {
             <h1 className="text-3xl text-center text-green-600">
                 Creating New Article
             </h1>
+
             <label htmlFor="title">Title</label>
             <input
                 type="text"
@@ -63,8 +66,14 @@ function ArticleForm() {
                     setDescription(e.target.value);
                 }}
             />
+
             <label htmlFor="content">Content:</label>
-            <textarea
+            <CustomEditor
+                contentValue={contentValue}
+                setContentValue={setContentValue}
+            />
+
+            {/* <textarea
                 type="text"
                 id="content"
                 placeholder="Enter Content"
@@ -76,7 +85,7 @@ function ArticleForm() {
                 onChange={(e) => {
                     setContent(e.target.value);
                 }}
-            />
+            /> */}
             <label htmlFor="author">Author:</label>
             <input
                 type="text"
@@ -114,7 +123,6 @@ function ArticleForm() {
                     setCategory(e.target.value);
                 }}
             />
-
             <label htmlFor="imgUrl">Image URL</label>
             <textarea
                 // @ts-ignore
@@ -128,12 +136,10 @@ function ArticleForm() {
                     setImgUrl(e.target.value);
                 }}
             />
-
             <div className="flex border border-red-300">
                 <span className="p-6">Image Preview:</span>
                 <img className="w-1/3 my-6" src={imgUrl} />
             </div>
-
             <div className="mx-auto container">
                 <form>
                     <Link to="/">

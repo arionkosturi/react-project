@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Header from './Header';
+import CustomEditor from './CustomEditor';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 const api = axios.create({
     baseURL: 'http://localhost:3344/news/',
 });
-function EditArticle() {
+function EditArticle({ contentValue, setContentValue }) {
     const navigate = useNavigate();
 
     let handleDelete = (e) => {
@@ -105,21 +106,14 @@ function EditArticle() {
                     setDescription(e.target.value);
                 }}
             />
-            <label htmlFor="content">Content</label>
-            <textarea
-                type="text"
-                id="content"
-                placeholder="Enter Content"
-                name="content"
-                className="border p-2"
+
+            <label htmlFor="content">Content:</label>
+            <CustomEditor
                 // @ts-ignore
-                rows="10"
-                value={content}
-                onChange={(e) => {
-                    // @ts-ignore
-                    setContent(e.target.value);
-                }}
+                contentValue={content}
+                setContentValue={setContent}
             />
+
             <label htmlFor="author">Author:</label>
             <input
                 type="text"

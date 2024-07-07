@@ -14,14 +14,19 @@ function Paginate({ currentPage, setCurrentPage }) {
         <Pagination>
             <PaginationContent>
                 <PaginationItem>
-                    <PaginationPrevious href="#" />
+                    <PaginationPrevious
+                        onClick={() => {
+                            if (currentPage > 0)
+                                setCurrentPage((prevPage) => +prevPage - 1);
+                        }}
+                    />
                 </PaginationItem>
-                <PaginationItem>
+                {/* <PaginationItem>
                     <PaginationLink href="#">1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
+                </PaginationItem> */}
+                {/* <PaginationItem>
                     <PaginationEllipsis />
-                </PaginationItem>
+                </PaginationItem> */}
                 <PaginationItem>
                     <PaginationNext
                         onClick={() => {
