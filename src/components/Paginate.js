@@ -15,9 +15,10 @@ function Paginate({ currentPage, setCurrentPage }) {
     return (
         <>
             <Pagination className="">
-                <PaginationContent>
+                <PaginationContent className="  hover:cursor-pointer">
                     <PaginationItem>
                         <PaginationPrevious
+                            className="text-purple-800 hover:text-purple-500"
                             onClick={() => {
                                 if (currentPage > 0)
                                     setCurrentPage((prevPage) => +prevPage - 1);
@@ -27,6 +28,7 @@ function Paginate({ currentPage, setCurrentPage }) {
 
                     <PaginationItem>
                         <PaginationNext
+                            className="text-purple-800 hover:text-purple-500"
                             onClick={() => {
                                 setCurrentPage((prevPage) => +prevPage + 1);
                             }}
