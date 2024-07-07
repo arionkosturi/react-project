@@ -36,7 +36,9 @@ function ArticleForm() {
     return (
         <div className="flex flex-col container gap-2 mx-auto">
             <Header />
-            <h1 className="text-3xl text-purple-600">NEW ARTICLE</h1>
+            <h1 className="text-3xl text-center text-green-600">
+                Creating New Article
+            </h1>
             <label htmlFor="title">Title</label>
             <input
                 type="text"
