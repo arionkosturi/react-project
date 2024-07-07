@@ -1,10 +1,15 @@
 import React, { useState, Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import CustomEditor from './CustomEditor';
+import { useToast } from './ui/use-toast';
+import { Toaster } from './ui/toaster';
 
 function ArticleForm() {
+    const navigate = useNavigate();
+    const { toast } = useToast();
+
     const [contentValue, setContentValue] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -32,9 +37,18 @@ function ArticleForm() {
             .catch(function (error) {
                 console.log(error);
             });
+        toast({
+            variant: 'success',
+            title: 'Success',
+            description: 'Artikulli u krijua me sukses!',
+        });
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
     };
     return (
         <div className="flex flex-col container gap-2 mx-auto">
+            <Toaster />
             <Header />
             <h1 className="text-3xl text-center text-green-600">
                 Creating New Article

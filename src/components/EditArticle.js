@@ -1,13 +1,20 @@
+// @ts-nocheck
 import React, { useState } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import CustomEditor from './CustomEditor';
+import DeleteAlert from './DeleteAlert';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
+import { useToast } from './ui/use-toast';
+import { Toaster } from './ui/toaster';
+import { ToastAction } from './ui/toast';
+
 const api = axios.create({
     baseURL: 'http://localhost:3344/news/',
 });
 function EditArticle({ contentValue, setContentValue }) {
     const navigate = useNavigate();
+    const { toast } = useToast();
 
     let handleDelete = (e) => {
         e.preventDefault();
@@ -23,6 +30,7 @@ function EditArticle({ contentValue, setContentValue }) {
     };
     let handleSubmit = (e) => {
         e.preventDefault();
+
         axios
             .patch(
                 `http://localhost:3344/news/${id}`,
@@ -43,6 +51,15 @@ function EditArticle({ contentValue, setContentValue }) {
             .catch(function (error) {
                 console.log(error);
             });
+
+        toast({
+            variant: 'success',
+            title: 'Success',
+            description: 'Perditesimi u ruajt me sukses!',
+        });
+        setTimeout(() => {
+            navigate('/');
+        }, 3000);
     };
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
@@ -70,11 +87,8 @@ function EditArticle({ contentValue, setContentValue }) {
 
     return (
         <div className="flex flex-col container gap-1 mx-auto">
-            <Header
-                // @ts-ignore
-                className="text-white"
-            />
-
+            <Toaster />
+            <Header className="text-white" />
             <h1 className="text-3xl text-purple-600">Edit Article:</h1>
             <label htmlFor="title" className="text-xl">
                 Title:
@@ -174,23 +188,28 @@ function EditArticle({ contentValue, setContentValue }) {
             </div>
             <div className="mx-auto container ">
                 <form>
-                    <Link to="/">
-                        <button className="mx-4 border shadow w-1/5">
-                            Cancel
+                    <div className="flex">
+                        <Link to="/">
+                            <button className="mx-4 py-2 px-4 border shadow w-48">
+                                Cancel
+                            </button>
+                        </Link>
+                        <span className="border shadow hover:bg-red-500 bg-red-600 text-white">
+                            <DeleteAlert
+                                alertTitle="Jeni i sigurt?"
+                                alertMessage="Jeni duke fshire artikullin nga serveri. Jeni te sigurt
+    per kete veprim?"
+                                className="mt-3 w-32 text-xl hover:text-slate-300 "
+                                handleDelete={handleDelete}
+                            ></DeleteAlert>
+                        </span>
+                        <button
+                            onClick={handleSubmit}
+                            className="hover:bg-green-500 mx-4 border shadow bg-green-600 text-white w-1/5"
+                        >
+                            Save
                         </button>
-                    </Link>
-                    <button
-                        onClick={handleDelete}
-                        className="mx-4 border bg-red-600 text-white shadow w-1/5"
-                    >
-                        Delete
-                    </button>
-                    <button
-                        onClick={handleSubmit}
-                        className="hover:bg-green-500 mx-4 border shadow bg-green-600 text-white w-1/5"
-                    >
-                        Save
-                    </button>
+                    </div>
                 </form>
             </div>
         </div>
