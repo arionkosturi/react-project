@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import Header from './Header';
 
 function ArticleForm() {
     const navigate = useNavigate();
@@ -34,7 +35,8 @@ function ArticleForm() {
     };
     return (
         <div className="flex flex-col container gap-2 mx-auto">
-            <h1>NEW ARTICLE</h1>
+            <Header />
+            <h1 className="text-3xl text-purple-600">NEW ARTICLE</h1>
             <label htmlFor="title">Title</label>
             <input
                 type="text"

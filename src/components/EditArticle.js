@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Header from './Header';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 const api = axios.create({
     baseURL: 'http://localhost:3344/news/',
@@ -68,7 +69,9 @@ function EditArticle() {
 
     return (
         <div className="flex flex-col container gap-1 mx-auto">
-            <h1>Edit Article</h1>
+            <Header className="text-white" />
+
+            <h1 className="text-3xl text-purple-600">Edit Article:</h1>
             <label htmlFor="title" className="text-xl">
                 Title:
             </label>

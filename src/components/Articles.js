@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 import { useNavigate, Link, useParams } from 'react-router-dom';
-import EditArticle from './EditArticle'
+import EditArticle from './EditArticle';
 const api = axios.create({
     baseURL: 'http://localhost:3344/news/',
 });
 
 function Articles() {
-   const navigate = useNavigate();
+    const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
     React.useEffect(() => {
         api.get('/').then((res) => {
@@ -33,11 +33,10 @@ function Articles() {
                     console.log(err);
                 });
         };
-   
-      let handleEdit = () => {
-        
-        navigate(`edit?id=${article._id}`)
-      }
+
+        let handleEdit = () => {
+            navigate(`edit?id=${article._id}`);
+        };
 
         return (
             <div
@@ -47,18 +46,21 @@ function Articles() {
             >
                 <div className="flex p-2 ">
                     <img className="w-1/3 my-2" src={article.imgUrl} />
-                    <h1 onDoubleClick={()=>{
-                      console.log('double click');
-                    }}className="font-bold mx-4 my-2  text-purple-400">
-                        {article.title}
-                    </h1>
+                    <div>
+                        <h1 className="font-bold mx-4 my-2  text-purple-400">
+                            {article.title}
+                        </h1>
+                        <p className="text-sm mx-4 text-slate-400 ">
+                            {article.description}
+                        </p>
+                    </div>
                 </div>
                 {/* Delete Button */}
                 <FaTrash
                     onClick={handleDelete}
                     className="mt-4 w-48 hover:text-red-600"
                 />
-                 <FaPencilAlt 
+                <FaPencilAlt
                     onClick={handleEdit}
                     className="mt-4 w-48 hover:text-red-600"
                 />
@@ -71,8 +73,6 @@ function Articles() {
                     }}
                     className="mt-4 w-48 hover:text-red-600"
                 /> */}
-               
-
             </div>
         );
     });
