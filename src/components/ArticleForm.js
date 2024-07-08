@@ -14,7 +14,6 @@ function ArticleForm() {
     const [contentValue, setContentValue] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    // const [content, setContent] = useState('');
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('');
     const [sourceUrl, setSource] = useState('');
