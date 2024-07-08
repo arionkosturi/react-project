@@ -43,6 +43,7 @@ function EditArticle({ contentValue, setContentValue }) {
                     sourceUrl,
                     category,
                     imgUrl,
+                    isPublished,
                 }
             )
             .then(function (response) {
@@ -68,7 +69,7 @@ function EditArticle({ contentValue, setContentValue }) {
     const [author, setAuthor] = useState();
     const [sourceUrl, setSource] = useState();
     const [category, setCategory] = useState();
-
+    const [isPublished, setIsPublished] = useState();
     const [queryParameter] = useSearchParams();
     let id = queryParameter.get('id');
     React.useEffect(() => {
@@ -80,6 +81,7 @@ function EditArticle({ contentValue, setContentValue }) {
             setAuthor(res.data.author);
             setSource(res.data.sourceUrl);
             setImgUrl(res.data.imgUrl);
+            setIsPublished(res.data.isPublished);
         });
 
         return () => {};
@@ -186,6 +188,20 @@ function EditArticle({ contentValue, setContentValue }) {
                 <span className="p-6">Image Preview:</span>
                 <img className="w-1/3 my-6" src={imgUrl} />
             </div>
+
+            <label htmlFor="isPublished">Published?</label>
+            <input
+                type="text"
+                id="isPublished"
+                name="isPublished"
+                className="border p-2"
+                value={isPublished}
+                onChange={(e) => {
+                    // @ts-ignore
+                    setIsPublished(e.target.value);
+                }}
+            />
+
             <div className="mx-auto container ">
                 <form>
                     <div className="flex">

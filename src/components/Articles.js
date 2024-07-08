@@ -4,6 +4,7 @@ import axios from 'axios';
 import { FaTrash, FaPencilAlt } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import DeleteAlert from './DeleteAlert';
+import CheckPublished from './CheckPublished';
 import { useToast } from './ui/use-toast';
 import { Toaster } from './ui/toaster';
 import { ToastAction } from './ui/toast';
@@ -16,7 +17,8 @@ function Articles({ currentPage }) {
     const { toast } = useToast();
     const navigate = useNavigate();
     const [articles, setArticles] = useState([]);
-    console.log(currentPage);
+    const [published, setPublished] = useState(false);
+
     React.useEffect(() => {
         api.get(`/?p=${currentPage}`).then((res) => {
             setArticles(res.data);
@@ -28,7 +30,13 @@ function Articles({ currentPage }) {
             setArticles(res.data);
         });
     };
+
     return articles.map((article) => {
+        // setPublished(article.isPublished);
+        console.log(article.isPublished);
+
+        // console.log(published);
+        // Handle Delete
         let handleDelete = () => {
             api.delete(`/${article._id}`)
                 .then((response) => {
@@ -46,11 +54,11 @@ function Articles({ currentPage }) {
                 navigate('/');
             }, 3000);
         };
-
+        // Handle Edit
         let handleEdit = () => {
             navigate(`edit?id=${article._id}`);
         };
-
+        let publishedText = JSON.stringify(article.isPublished);
         return (
             <div
                 className="  flex container mx-auto border my-1"
@@ -68,19 +76,34 @@ function Articles({ currentPage }) {
                         </p>
                     </div>
                 </div>
+                <section className="flex flex-col gap-1">
+                    <CheckPublished
+                        isPublished={
+                            article.isPublished === true
+                                ? 'Published'
+                                : 'Archived'
+                        }
+                        className={
+                            article.isPublished === true
+                                ? 'border w-24 h-9 mt-2 px-2 bg-green-400'
+                                : 'border w-24 h-9 mt-2 px-2 bg-red-400'
+                        }
+                    />
+                    <button
+                        onClick={handleEdit}
+                        className="border w-24 h-9 flex bg-yellow-200 hover:bg-yellow-500 gap-2 "
+                    >
+                        <p className="py-1 ms-2 flex">Edit</p>
+                        <FaPencilAlt className="m-2 " />
+                    </button>
 
-                {/* Delete Button */}
-                <DeleteAlert
-                    handleDelete={handleDelete}
-                    alertTitle="Jeni i sigurt?"
-                    alertMessage="Jeni duke fshire artikullin nga serveri. Jeni te sigurt per kete veprim?"
-                    className="mt-4 w-48 z-50 hover:text-red-600"
-                />
-
-                <FaPencilAlt
-                    onClick={handleEdit}
-                    className="mt-4 w-48 hover:text-red-600"
-                />
+                    {/* Delete Button */}
+                    <DeleteAlert
+                        handleDelete={handleDelete}
+                        alertTitle="Jeni i sigurt?"
+                        alertMessage="Jeni duke fshire artikullin nga serveri. Jeni te sigurt per kete veprim?"
+                    />
+                </section>
             </div>
         );
     });
