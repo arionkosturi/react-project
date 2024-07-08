@@ -1,9 +1,11 @@
 import React from 'react';
 
-function checkPublished({ isPublished, className }) {
+function checkPublished({ isPublished, className, handlePublish }) {
     return (
         <>
-            <button className={className}>{isPublished}</button>
+            <button onClick={handlePublish} className={className}>
+                {isPublished}
+            </button>
         </>
     );
 }

@@ -69,7 +69,7 @@ function EditArticle({ contentValue, setContentValue }) {
     const [author, setAuthor] = useState();
     const [sourceUrl, setSource] = useState();
     const [category, setCategory] = useState();
-    const [isPublished, setIsPublished] = useState();
+    const [isPublished, setIsPublished] = useState(false);
     const [queryParameter] = useSearchParams();
     let id = queryParameter.get('id');
     React.useEffect(() => {

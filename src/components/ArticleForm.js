@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, Component } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -17,7 +18,7 @@ function ArticleForm() {
     const [category, setCategory] = useState('');
     const [author, setAuthor] = useState('');
     const [sourceUrl, setSource] = useState('');
-
+    const [isPublished, setIsPublished] = useState(false);
     const [imgUrl, setImgUrl] = useState('');
     let handleSubmit = (e) => {
         e.preventDefault();
@@ -30,6 +31,7 @@ function ArticleForm() {
                 author,
                 category,
                 sourceUrl,
+                isPublished,
             })
             .then(function (response) {
                 console.log(response);
@@ -154,6 +156,17 @@ function ArticleForm() {
                 <span className="p-6">Image Preview:</span>
                 <img className="w-1/3 my-6" src={imgUrl} />
             </div>
+
+            <input
+                type="text"
+                id="isPublished"
+                name="isPublished"
+                className="border p-2"
+                value={isPublished}
+                onChange={(e) => {
+                    setIsPublished(e.target.value);
+                }}
+            />
             <div className="mx-auto container">
                 <form>
                     <Link to="/">

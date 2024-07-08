@@ -6,6 +6,7 @@ import Header from './Header';
 import Paginate from './Paginate';
 function Home() {
     let [currentPage, setCurrentPage] = useState('0');
+    let [isPublished, setIsPublished] = useState();
 
     return (
         <>
@@ -14,7 +15,11 @@ function Home() {
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
             />
-            <Articles currentPage={currentPage} />
+            <Articles
+                isPublished={isPublished}
+                setIsPublished={setIsPublished}
+                currentPage={currentPage}
+            />
         </>
     );
 }
