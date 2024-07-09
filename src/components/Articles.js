@@ -10,7 +10,7 @@ import { Toaster } from './ui/toaster';
 import { ToastAction } from './ui/toast';
 
 const api = axios.create({
-    baseURL: 'http://localhost:3344/news/',
+    baseURL: 'http://localhost:3344/news/all',
 });
 
 function Articles({ currentPage, isPublished, setIsPublished }) {
