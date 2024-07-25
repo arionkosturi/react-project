@@ -1,36 +1,67 @@
-import React from 'react';
-import { FaRegNewspaper } from 'react-icons/fa';
-import AddArticle from './AddArticle';
-import { useSearchParams, useLocation } from 'react-router-dom';
+// @ts-nocheck
+import React from "react";
+import { FaRegNewspaper } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../components/ui/button";
+import useToken from "../components/useToken";
 export default function Header() {
-    const [queryParameter] = useSearchParams();
-    let editMode = queryParameter.get('id');
-    const location = useLocation();
-    let createMode = location.pathname;
+  const { token } = useToken();
+  const navigate = useNavigate();
 
-    return (
-        <div className="container mx-auto ">
-            <div className="flex justify-between items-center py-4">
-                <div className="w-1/2 font-semi  text-purple-700 text-xl ">
-                    <a href="/">
-                        <span className="text-4xl">
-                            <FaRegNewspaper />
-                        </span>
-                        <p>News - Backend</p>
-                    </a>
-                </div>
+  let handleLogin = () => {
+    navigate("/dashboard");
+  };
 
-                <nav className=" xl:relative top-16 xl:top-0 flex justify-end md:items-center bg-white   lg:shadow-none sm:mt-0 xl:mr-10 py-2 w-full">
-                    {/* Render button if not 
-                    in edit mode or create mode */}
-                    {editMode || createMode == '/new' ? (
-                        ''
-                    ) : (
-                        <AddArticle className="flex hover:bg-slate-50 m-4 shadow border py-1 px-2" />
-                    )}
-                    {}
-                </nav>
-            </div>
+  let handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    sessionStorage.clear();
+    window.location.href = "/";
+  };
+  return (
+    <div className="flex justify-between container mx-auto items-center py-1">
+      <div className=" font-semi  text-purple-700 text-xl ">
+        <a href="/dashboard">
+          <span className="text-4xl">
+            <FaRegNewspaper />
+          </span>
+          <p>News</p>
+        </a>
+      </div>
+      {!token ? (
+        <Button
+          className="flex hover:bg-slate-50 m-4 shadow border py-1 px-2"
+          onClick={handleLogin}
+        >
+          Login
+        </Button>
+      ) : (
+        <div className="flex gap-2">
+          <p
+            onClick={() => {
+              navigate("/");
+            }}
+            className="h-12 mt-3 cursor-pointer border p-3 hover:bg-slate-100"
+          >
+            Public View
+          </p>
+          <p
+            onClick={() => {
+              navigate("/dashboard");
+            }}
+            className="h-12 mt-3 cursor-pointer border p-3 hover:bg-slate-100"
+          >
+            Dashboard
+          </p>
+          <Button
+            className="flex hover:bg-slate-50 m-4 shadow border py-1 px-2"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
         </div>
-    );
+      )}
+    </div>
+  );
 }

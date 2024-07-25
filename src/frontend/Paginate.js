@@ -6,9 +6,9 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from "./ui/pagination";
+} from "../components/ui/pagination";
 
-function Paginate({ currentPage, setCurrentPage, isPreviousData, articles }) {
+function Paginate({ currentPage, setCurrentPage, articles }) {
   return (
     <>
       <Pagination className="">
@@ -27,7 +27,6 @@ function Paginate({ currentPage, setCurrentPage, isPreviousData, articles }) {
             <PaginationNext
               className="text-purple-800 hover:text-purple-500"
               onClick={() => {
-                console.log("click");
                 if (articles.length < 9) return;
                 setCurrentPage((prevPage) => +prevPage + 1);
               }}

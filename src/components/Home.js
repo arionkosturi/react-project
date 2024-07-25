@@ -1,27 +1,22 @@
 // @ts-nocheck
-import React, { useState } from 'react';
-import AddArticle from './AddArticle';
-import Articles from './Articles';
-import Header from './Header';
-import Paginate from './Paginate';
+import React, { useState } from "react";
+import Header from "../frontend/Header";
+import Categories from "../frontend/Categories";
+import Footer from "../frontend/Footer";
+import PublicArticles from "../frontend/PublicArticles";
+import HighlitedSection from "../frontend/HighlitedSection";
 function Home() {
-    let [currentPage, setCurrentPage] = useState('0');
-    let [isPublished, setIsPublished] = useState();
+  let [currentPage] = useState("0");
 
-    return (
-        <>
-            <Header />
-            <Paginate
-                currentPage={currentPage}
-                setCurrentPage={setCurrentPage}
-            />
-            <Articles
-                isPublished={isPublished}
-                setIsPublished={setIsPublished}
-                currentPage={currentPage}
-            />
-        </>
-    );
+  return (
+    <div className="container mx-auto">
+      <Header />
+      <HighlitedSection />
+      <PublicArticles currentPage={currentPage} />
+      <Categories />
+      <Footer />
+    </div>
+  );
 }
 
 export default Home;
