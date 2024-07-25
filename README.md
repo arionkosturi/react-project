@@ -1,4 +1,4 @@
-# Backend per projektin e meparshem ne Javascript
+# Backend per projektin e meparshem ne Javascript, ky projekt eshte spostuar ne:
 
 Ky aplikacion eshte ne sherbim te [projektit ne Javascript](https://github.com/arionkosturi/JavascriptProject) duke perdorur [API](https://github.com/arionkosturi/api-v2) te krijuar me express dhe mongodb
 
